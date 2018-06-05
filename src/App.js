@@ -11,14 +11,9 @@ class App extends Component {
     this.cameraRef = React.createRef();
   }
   componentDidMount() {
-    console.log(
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(video => console.log(video))
-    );
     navigator.mediaDevices
       .getUserMedia({ video: true })
-      .then(video => (this.cameraRef = video));
+      .then(video => (this.cameraRef.current.srcObject = video));
   }
   render() {
     return (
@@ -27,8 +22,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
+        <h2>Testing a new video feed</h2>
+        <video id="video" ref={this.cameraRef} autoPlay />
+        
         <p className="App-intro">
-          <video ref={this.cameraRef} autoPlay />
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
